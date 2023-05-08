@@ -4,20 +4,23 @@ const bcrypt = require('bcryptjs');
 const { ObjectID } = require('mongodb');
 const googleStrategy = require('passport-google-oauth20').Strategy;
 
-function auth (myDataBase) {
+
     console.log('route visited');
   passport.serializeUser((user, done) => {
     done(null, user._id);
   });
 
-  passport.deserializeUser((id, done) => {
+  passport.deserializeUser(async (id, done) => {
+    const myDataBase = await client.db('database').collection('users');
     myDataBase.findOne({ _id: new ObjectID(id) }, (err, doc) => {
         if (err) return console.error(err);
         done(null, doc);
     });
   });
 
-  passport.use(new LocalStrategy((username, password, done) => {
+  passport.use(new LocalStrategy( async (username, password, done) => {
+    const myDataBase = await client.db('database').collection('users');
+
     myDataBase.findOne({ username: username }, (err, user) => {
       console.log(`User ${username} attempted to log in.`);
       if (err) { return done(err); }
@@ -39,5 +42,4 @@ function auth (myDataBase) {
      
   //   }
   // ));
-}
-module.exports = auth;
+

@@ -1,17 +1,16 @@
-require('dotenv').config();
-const { MongoClient } = require('mongodb');
+require('dotenv').config({path: "./sample.env"});
+const PORT = process.env.PORT;
+const mongoose = require('mongoose');
 
-async function main(callback) {
+const connectDB = async () => {
     const URI = process.env.MONGO_URI; 
-    const client = new MongoClient(URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {
        
-        await client.connect();
-
-       
-        await callback(client);
-
+    const client = mongoose.connect(URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    if(client){
+        console.log(`MongoDB connected successfully on ${PORT}`)
+    }
     } catch (e) {
     
         console.error(e);
@@ -19,4 +18,4 @@ async function main(callback) {
     }
 }
 
-module.exports = main;
+module.exports = {connectDB};
