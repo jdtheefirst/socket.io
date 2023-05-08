@@ -1,3 +1,6 @@
 # Advanced Node and Express
 
-This is the boilerplate for the Advanced Node and Express lessons. Instructions for the lessons start at https://www.freecodecamp.org/learn/quality-assurance/advanced-node-and-express/
+- 👋 Hi, I’m @jdtheefirst
+- 👀 Run in a common problem here.
+- 🌱 I was currrently working on this project and the routes won't render.
+- 💞️ I’m looking for some help... thank you,
